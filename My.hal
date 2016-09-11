@@ -99,7 +99,7 @@ setp pid.0.deadband [AXIS_0]DEADBAND
 setp pid.0.maxoutput [AXIS_0]MAX_OUTPUT
 
 net home-x bb_gpio.p8.in-10 => axis.0.home-sw-in
-#setp bb_gpio.p8.in-10.invert 1
+setp bb_gpio.p8.in-10.invert 1
 
 # ################
 # Y [1] Axis
@@ -153,7 +153,7 @@ setp pid.1.deadband [AXIS_1]DEADBAND
 setp pid.1.maxoutput [AXIS_1]MAX_OUTPUT
 
 net home-y bb_gpio.p8.in-14 => axis.1.home-sw-in
-#setp bb_gpio.p8.in-14.invert 1
+setp bb_gpio.p8.in-14.invert 1
 
 # ################
 # Z [2] Axis
@@ -206,7 +206,7 @@ setp pid.2.deadband [AXIS_2]DEADBAND
 setp pid.2.maxoutput [AXIS_2]MAX_OUTPUT
 
 net home-z bb_gpio.p8.in-18 => axis.2.home-sw-in
-#setp bb_gpio.p8.in-18.invert 1
+setp bb_gpio.p8.in-18.invert 1
 
 # ##################################################
 # Standard I/O - EStop, Enables, Limit Switches, Etc
@@ -235,7 +235,7 @@ net estop-in bb_gpio.p8.in-09 => iocontrol.0.emc-enable-in
 setp bb_gpio.p8.in-09.invert 1
 
 # probe input
-net probe motion.probe-input <= bb_gpio.p8.in-16
+net probe-in motion.probe-input <= bb_gpio.p8.in-16
 setp bb_gpio.p8.in-16.invert 1
 
 # spindle power

@@ -74,21 +74,22 @@ fi
 # sure the pin starts with a known value as soon as possible.
 
 sudo $(which config-pin) -f - <<- EOF
-	P8.07  out # gpio2.2  Enable System
-	P8.08  in  # PROBE
-	P8.09  in  # gpio2.5  STOPin
-	P8.10  in  # gpio2.4  XLIM
-	P8.11  out # gpio1.13  XDIR
-	P8.12  out # gpio1.12  XSTEP
-	P8.13  out # gpio0.23  PWM0/SPINDLE
-	P8.15  out # gpio0.23  SPINDLE POWER
-	P8.14  in  # gpio0.26  YLIM
-	P8.18  in  # gpio2.1  ZLIM
-	P8.19  out # gpio0.22  PWM1
+	P8.07  out # Enable System
+	P8.08  in+ # PROBE
+	P8.09  in+ # ESTOP
+	P8.10  in+ # XLIM
+	P8.11  out # XDIR
+	P8.12  out # XSTEP
+	P8.13  out # PWM0/SPINDLE
+	P8.15  out # SPINDLE POWER
+	P8.16  in+ # PROBE
+	P8.14  in+ # YLIM
+	P8.18  in+ # ZLIM
+	P8.19  out # PWM1
 
-	P9.14  out # gpio1.18  PWM2
-	P9.25  in  # SPINDLE_INDEX
-	P9.26  in  # SPINDLE_PHASE1
+	P9.14  out # PWM2
+	P9.25  in+ # SPINDLE_INDEX
+	P9.26  in+ # SPINDLE_PHASE1
 	P9.27  out # YDIR
 	P9.28  out # YSTEP
 	P9.29  out # ZDIR
