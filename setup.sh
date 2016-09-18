@@ -74,7 +74,7 @@ fi
 # sure the pin starts with a known value as soon as possible.
 
 sudo $(which config-pin) -f - <<- EOF
-	P8.07  out # Enable System
+	P8.07  high # Enable System
 	P8.08  in+ # PROBE
 	P8.09  in+ # ESTOP
 	P8.10  in+ # XLIM

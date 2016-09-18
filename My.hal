@@ -98,6 +98,7 @@ setp pid.0.FF2 [AXIS_0]FF2
 setp pid.0.deadband [AXIS_0]DEADBAND
 setp pid.0.maxoutput [AXIS_0]MAX_OUTPUT
 
+# net home-x bb_gpio.p8.in-10 => axis.0.home-sw-in axis.0.neg-lim-sw-in
 net home-x bb_gpio.p8.in-10 => axis.0.home-sw-in
 setp bb_gpio.p8.in-10.invert 1
 
@@ -152,6 +153,7 @@ setp pid.1.FF2 [AXIS_1]FF2
 setp pid.1.deadband [AXIS_1]DEADBAND
 setp pid.1.maxoutput [AXIS_1]MAX_OUTPUT
 
+# net home-y bb_gpio.p8.in-14 => axis.1.home-sw-in axis.1.neg-lim-sw-in
 net home-y bb_gpio.p8.in-14 => axis.1.home-sw-in
 setp bb_gpio.p8.in-14.invert 1
 
@@ -205,6 +207,7 @@ setp pid.2.FF2 [AXIS_2]FF2
 setp pid.2.deadband [AXIS_2]DEADBAND
 setp pid.2.maxoutput [AXIS_2]MAX_OUTPUT
 
+# net home-z bb_gpio.p8.in-18 => axis.2.home-sw-in axis.2.neg-lim-sw-in
 net home-z bb_gpio.p8.in-18 => axis.2.home-sw-in
 setp bb_gpio.p8.in-18.invert 1
 
@@ -249,5 +252,4 @@ setp hpg.pwmgen.00.out.00.value 0.0
 setp hpg.pwmgen.00.out.00.scale 10000
 setp hpg.pwmgen.00.out.00.pin 55
 net spindle-speed-cmd motion.spindle-speed-out => hpg.pwmgen.00.out.00.value
-
 
