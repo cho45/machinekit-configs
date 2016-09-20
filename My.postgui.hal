@@ -1,0 +1,77 @@
+# X-BOX USB コントローラジョギング設定
+# abs-hat0x, abs-hat0y: デジタル十字キー 1 か -1
+# abs-rx, abs-ry: 右アナログスティック
+# abs-rz: 右アナログトリガー (RT)
+# abs-x, abs-y: 左アナログスティック
+# abs-z: 左アナログトリガー (LT)
+# btn-a: Aボタン
+# btn-b: Bボタン
+# btn-mode: X-BOX ボタン
+# btn-select: BACK ボタン
+# btn-start: スタートボタン
+# btn-thumbl: 左スティック押し込み
+# btn-thumbr: 右スティック押し込み
+# btn-tl: 左上側ボタン (LB)
+# btn-tr: 右上側ボタン (RB)
+# btn-x: Xボタン
+# btn-y: Yボタン
+
+loadusr -W hal_input -KRAL 360
+
+loadrt deadzone count=4
+loadrt scale count=1
+addf deadzone.0 servo-thread
+addf deadzone.1 servo-thread
+addf deadzone.2 servo-thread
+addf deadzone.3 servo-thread
+addf scale.0 servo-thread
+
+setp deadzone.0.center      0.0
+setp deadzone.0.threshhold  0.2
+setp deadzone.1.center      0.0
+setp deadzone.1.threshhold  0.2
+setp deadzone.2.center      0.0
+setp deadzone.2.threshhold  0.2
+setp deadzone.3.center      0.0
+setp deadzone.3.threshhold  0.2
+
+
+# 左トリガーをひかない限り動かないようにする
+# また、左トリガーのアナログ値によって最大スピードを制限する
+# abs-z を 0-1 に正規化する
+setp input.0.abs-z-offset 0
+setp input.0.abs-z-scale 255
+net joy-speed-jog-dead input.0.abs-z-position   deadzone.3.in
+# 最大スピードの設定
+setp scale.0.gain 800
+setp scale.0.offset 0
+net joy-speed-jog-scale deadzone.3.out scale.0.in
+net joy-speed-jog-final scale.0.out halui.jog-speed
+
+# X-BOX のコントローラの Scale は 127.5 ではないので気をつけよう
+# setp input.0.abs-rx-scale -32767.5
+setp input.0.abs-ry-scale -32767.5
+setp input.0.abs-y-scale -32767.5
+
+net joy-x-jog-dead input.0.abs-rx-position  deadzone.0.in
+net joy-y-jog-dead input.0.abs-ry-position  deadzone.1.in
+net joy-z-jog-dead input.0.abs-y-position   deadzone.2.in
+
+net joy-x-jog deadzone.0.out halui.jog.0.analog
+net joy-y-jog deadzone.1.out halui.jog.1.analog
+net joy-z-jog deadzone.2.out halui.jog.2.analog
+
+
+# 軸をセレクトしてから操作する系
+# X/Y/AキーがそれぞれX/Y/Z軸に対応する。
+# 十字キーの上下と左トリガーで移動
+net jog-x-select input.0.btn-x halui.joint.0.select
+net jog-y-select input.0.btn-y halui.joint.1.select
+net jog-z-select input.0.btn-a halui.joint.2.select
+net jog-selected-minus input.0.abs-hat0y-is-neg halui.jog.selected.minus
+net jog-selected-plus input.0.abs-hat0y-is-pos halui.jog.selected.plus
+
+
+# X-BOX ボタンでマシンが起動するぞ
+net joy-btn-xbox input.0.btn-mode halui.machine.on
+
