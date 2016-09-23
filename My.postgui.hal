@@ -103,3 +103,5 @@ net joy-z-jog deadzone.2.out halui.jog.2.analog
 # X-BOX ボタンでマシンが起動するぞ
 net joy-btn-xbox input.0.btn-mode halui.machine.on
 
+net joy-btn-start input.0.btn-start halui.mdi-command-00
+
