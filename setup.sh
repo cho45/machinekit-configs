@@ -88,8 +88,8 @@ sudo $(which config-pin) -f - <<- EOF
 	P8.19  out # PWM1
 
 	P9.14  out # PWM2
-	P9.25  in+ # SPINDLE_INDEX
-	P9.26  in+ # SPINDLE_PHASE1
+	P9.25  pruin # SPINDLE_PHASE1
+	P9.31  pruin # SPINDLE_INDEX
 	P9.27  out # YDIR
 	P9.28  out # YSTEP
 	P9.29  out # ZDIR
