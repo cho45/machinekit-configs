@@ -96,3 +96,6 @@ sudo $(which config-pin) -f - <<- EOF
 	P9.30  out # ZSTEP
 EOF
 
+mkdir -p ~/gcode
+ln -sf ~/machinekit/configs/ARM.BeagleBone.My/axis_resize.tcl ~/gcode/
+
