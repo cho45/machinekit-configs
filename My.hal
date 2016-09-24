@@ -24,7 +24,11 @@ loadrt hal_bb_gpio output_pins=107,115,119,126,214 input_pins=109,110,114,116,11
 ## setp hpg.stepgen.00.steppin         (address of pin)
 ## setp hpg.stepgen.00.dirpin          (address of pin)
 loadrt [PRUCONF](DRIVER) prucode=$(HAL_RTMOD_DIR)/[PRUCONF](PRUBIN) [PRUCONF](CONFIG) halname=hpg
-loadrt pid count=3
+loadrt pid count=4
+loadrt scale count=3
+loadrt lowpass count=1
+loadrt abs count=1
+loadrt sum2 count=1
 
 # ################################################
 # THREADS
@@ -37,6 +41,13 @@ addf motion-controller                    servo-thread
 addf pid.0.do-pid-calcs                   servo-thread
 addf pid.1.do-pid-calcs                   servo-thread
 addf pid.2.do-pid-calcs                   servo-thread
+addf pid.3.do-pid-calcs                   servo-thread
+addf scale.0 servo-thread
+addf scale.1 servo-thread
+addf scale.2 servo-thread
+addf lowpass.0 servo-thread
+addf abs.0 servo-thread
+addf sum2.0 servo-thread
 addf hpg.update                           servo-thread
 addf bb_gpio.write                        servo-thread
 
@@ -236,8 +247,8 @@ net probe-in motion.probe-input <= bb_gpio.p8.in-16
 setp bb_gpio.p8.in-16.invert 1
 
 # spindle power
-net spindle-power bb_gpio.p8.out-15 => motion.spindle-on
-setp bb_gpio.p8.out-15.invert 1
+#net spindle-power bb_gpio.p8.out-15 => motion.spindle-on
+#setp bb_gpio.p8.out-15.invert 1
 
 # spindle pwm P8.13
 setp hpg.pwmgen.00.pwm_period 10000000
@@ -245,10 +256,9 @@ setp hpg.pwmgen.00.out.00.enable 1
 setp hpg.pwmgen.00.out.00.value 0.0
 setp hpg.pwmgen.00.out.00.scale 10000
 setp hpg.pwmgen.00.out.00.pin 55
-net spindle-speed-cmd motion.spindle-speed-out => hpg.pwmgen.00.out.00.value
 
 # spindle encoder
-# index-enable がサポートされてない……
+# index-enable is not supported...
 setp hpg.encoder.00.chan.00.scale 60
 setp hpg.encoder.00.chan.00.counter-mode 2
 # setp hpg.encoder.00.chan.00.index-pin 0
@@ -256,6 +266,17 @@ setp hpg.encoder.00.chan.00.A-pin 7
 # setp hpg.encoder.00.chan.00.index-enable true
 
 # net spindle-position hpg.encoder.00.chan.00.position => motion.spindle-revs
-# net spindle-velocity hpg.encoder.00.chan.00.velocity => motion.spindle-speed-in
 # net spindle-index-enable hpg.encoder.00.chan.00.index-enable => motion.spindle-index-enable
+
+setp scale.2.gain 60
+setp pid.3.Pgain 0
+setp pid.3.Igain 1
+setp pid.3.Dgain 1
+setp pid.3.maxoutput 10000
+net spindle-enable motion.spindle-on => hpg.pwmgen.00.out.00.enable => pid.3.enable
+net spindle-velocity hpg.encoder.00.chan.00.velocity => scale.2.in
+net pid-feedback scale.2.out motion.spindle-speed-in pid.3.feedback
+net pid-command motion.spindle-speed-out pid.3.command sum2.0.in0
+net pid-output pid.3.output sum2.0.in1
+net pwmgen-value sum2.0.out hpg.pwmgen.00.out.00.value
 

@@ -19,11 +19,8 @@
 loadusr -W hal_input -KRAL 360
 
 loadrt deadzone count=5
-loadrt scale count=3
 loadrt mux2 count=3
 loadrt flipflop count=1
-loadrt lowpass count=1
-loadrt abs count=1
 
 addf flipflop.0 servo-thread
 addf mux2.0 servo-thread
@@ -35,11 +32,6 @@ addf deadzone.1 servo-thread
 addf deadzone.2 servo-thread
 addf deadzone.3 servo-thread
 addf deadzone.4 servo-thread
-addf scale.0 servo-thread
-addf scale.1 servo-thread
-addf scale.2 servo-thread
-addf lowpass.0 servo-thread
-addf abs.0 servo-thread
 
 setp deadzone.0.center      0.0
 setp deadzone.0.threshhold  0.2
@@ -111,10 +103,9 @@ net joy-btn-xbox input.0.btn-mode halui.machine.on
 net joy-btn-start input.0.btn-start halui.mdi-command-00
 
 
-setp scale.2.gain 60
-setp lowpass.0.gain 0.010000
-net spindle-velocity => lowpass.0.in
-net spindle-fb-filtered-rps      lowpass.0.out  => abs.0.in
-net spindle-fb-filtered-abs-rps  abs.0.out      => scale.2.in
-net spindle-fb-filtered-abs-rpm  scale.2.out    => pyvcp.spindle-speed
+#setp lowpass.0.gain 0.010000
+#net spindle-velocity => lowpass.0.in
+#net spindle-fb-filtered-rps      lowpass.0.out  => abs.0.in
+#net spindle-fb-filtered-abs-rps  abs.0.out      => scale.2.in
+#net spindle-fb-filtered-abs-rpm  scale.2.out    => pyvcp.spindle-speed
 
