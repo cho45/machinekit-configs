@@ -256,6 +256,6 @@ setp hpg.encoder.00.chan.00.A-pin 7
 # setp hpg.encoder.00.chan.00.index-enable true
 
 # net spindle-position hpg.encoder.00.chan.00.position => motion.spindle-revs
-# net spindle-velocity hpg.encoder.00.chan.00.velocity => motion.spindle-speed-in
+net spindle-velocity hpg.encoder.00.chan.00.velocity => motion.spindle-speed-in
 # net spindle-index-enable hpg.encoder.00.chan.00.index-enable => motion.spindle-index-enable
 
