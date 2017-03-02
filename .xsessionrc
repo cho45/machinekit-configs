@@ -1,0 +1,8 @@
+#!/bin/sh
+
+xset -dpms
+xset s off
+xsetroot -cursor_name left_ptr
+
+x11vnc -loop -forever -display :0 -passwd 123456 -noxrecord -noxfixes -xdamage -threads &
+LOCALE=C DISPLAY=:0 machinekit -v ~/machinekit/configs/ARM.BeagleBone.My/My.ini &
