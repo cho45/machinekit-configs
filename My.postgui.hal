@@ -111,10 +111,10 @@ net joy-btn-xbox input.0.btn-mode halui.machine.on
 net joy-btn-start input.0.btn-start halui.mdi-command-00
 
 
-setp scale.2.gain 60
-setp lowpass.0.gain 0.010000
-net spindle-velocity => lowpass.0.in
-net spindle-fb-filtered-rps      lowpass.0.out  => abs.0.in
-net spindle-fb-filtered-abs-rps  abs.0.out      => scale.2.in
-net spindle-fb-filtered-abs-rpm  scale.2.out    => pyvcp.spindle-speed
+#setp scale.2.gain 60
+#setp lowpass.0.gain 0.010000
+#net spindle-velocity => lowpass.0.in
+#net spindle-fb-filtered-rps      lowpass.0.out  => abs.0.in
+#net spindle-fb-filtered-abs-rps  abs.0.out      => scale.2.in
+#net spindle-fb-filtered-abs-rpm  scale.2.out    => pyvcp.spindle-speed
 
