@@ -9,4 +9,5 @@ size = '%dx%d' % maxgeo
 # size = '%dx%d' % (1920, 1080)
 
 root_window.tk.call("wm", "geometry", ".", size)
+root_window.attributes('-fullscreen', True)
 
