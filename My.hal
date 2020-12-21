@@ -240,7 +240,7 @@ net spindle-power bb_gpio.p8.out-15 => motion.spindle-on
 setp bb_gpio.p8.out-15.invert 1
 
 # spindle pwm P8.13
-setp hpg.pwmgen.00.pwm_period 10000000
+setp hpg.pwmgen.00.pwm_period 1000000
 setp hpg.pwmgen.00.out.00.enable 1
 setp hpg.pwmgen.00.out.00.value 0.0
 setp hpg.pwmgen.00.out.00.scale 10000

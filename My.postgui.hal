@@ -20,7 +20,7 @@ loadusr -W hal_input -KRAL 360
 
 loadrt deadzone count=5
 loadrt scale count=3
-loadrt mux2 count=3
+loadrt mux2 count=4
 loadrt flipflop count=1
 loadrt lowpass count=1
 loadrt abs count=1
@@ -29,6 +29,7 @@ addf flipflop.0 servo-thread
 addf mux2.0 servo-thread
 addf mux2.1 servo-thread
 addf mux2.2 servo-thread
+addf mux2.3 servo-thread
 
 addf deadzone.0 servo-thread
 addf deadzone.1 servo-thread
@@ -117,4 +118,13 @@ net joy-btn-start input.0.btn-start halui.mdi-command-00
 #net spindle-fb-filtered-rps      lowpass.0.out  => abs.0.in
 #net spindle-fb-filtered-abs-rps  abs.0.out      => scale.2.in
 #net spindle-fb-filtered-abs-rpm  scale.2.out    => pyvcp.spindle-speed
+
+# スピンドルスピード設定をGUIからできるように。
+# Sable-2015 はプーリーで機械的に 10000rpm と 4300rpm を切り替えられるので設定できるようにする
+setp mux2.3.in0 10000
+setp mux2.3.in1 4300
+net spindle-scale-select pyvcp.spindle-scale-select.low => mux2.3.sel
+net spindle-scale-set mux2.3.out => pyvcp.spindle-speed-scale-current hpg.pwmgen.00.out.00.scale
+
+net spindle-speed-cmd => pyvcp.spindle-speed-set
 

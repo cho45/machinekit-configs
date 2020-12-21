@@ -1,15 +1,49 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <pyvcp>
 	<vbox>
-		<bd>6</bd>
+		<hbox>
+			<label>
+				<text>"Pulley Setting:"</text>
+				<font>("Helvetica",10)</font>
+			</label>
+			<radiobutton>
+				<choices>["high", "low"]</choices>
+				<halpin>"spindle-scale-select"</halpin>
+				<initval>0</initval>
+			</radiobutton>
+		</hbox>
 		<label>
-			<text>"Spindle Speed:"</text>
-			<font>("Helvetica",20)</font>
+			<text>"Spindle Speed [rpm]:"</text>
+			<font>("Helvetica",10)</font>
 		</label>
-		<bar>
-			<halpin>"spindle-speed"</halpin>
-			<max_>10000</max_>
-		</bar>
+		<hbox>
+			<number>
+				<halpin>"spindle-speed"</halpin>
+				<font>("Helvetica",10)</font>
+				<format>"6d"</format>
+				<width>6</width>
+			</number>
+			<label>
+				<text>"/set"</text>
+				<font>("Helvetica",10)</font>
+			</label>
+			<number>
+				<halpin>"spindle-speed-set"</halpin>
+				<font>("Helvetica",10)</font>
+				<format>"6d"</format>
+				<width>6</width>
+			</number>
+			<label>
+				<text>"/max"</text>
+				<font>("Helvetica",10)</font>
+			</label>
+			<number>
+				<halpin>"spindle-speed-scale-current"</halpin>
+				<font>("Helvetica",10)</font>
+				<format>"6d"</format>
+				<width>6</width>
+			</number>
+		</hbox>
 	</vbox>
 </pyvcp>
 
