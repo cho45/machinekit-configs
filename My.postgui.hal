@@ -111,6 +111,15 @@ net joy-btn-xbox input.0.btn-mode halui.machine.on
 
 net joy-btn-start input.0.btn-start halui.mdi-command-00
 
+# 十字キー横でjog
+net joy-btn-hat-x-positive input.0.abs-hat0x-is-pos halui.jog.selected.increment-plus
+net joy-btn-hat-x-negative input.0.abs-hat0x-is-neg halui.jog.selected.increment-minus
+# AXIS UI の設定と内部状態を一致させる
+net sync-axiui-haui-jog-increment axisui.jog.increment halui.jog.selected.increment
+net sync-axiui-haui-jog-select-x axisui.jog.x halui.joint.0.select
+net sync-axiui-haui-jog-select-y axisui.jog.y halui.joint.1.select
+net sync-axiui-haui-jog-select-z axisui.jog.z halui.joint.2.select
+
 
 #setp scale.2.gain 60
 #setp lowpass.0.gain 0.010000
@@ -122,7 +131,7 @@ net joy-btn-start input.0.btn-start halui.mdi-command-00
 # スピンドルスピード設定をGUIからできるように。
 # Sable-2015 はプーリーで機械的に 10000rpm と 4300rpm を切り替えられるので設定できるようにする
 setp mux2.3.in0 10000
-setp mux2.3.in1 4300
+setp mux2.3.in1 3800
 net spindle-scale-select pyvcp.spindle-scale-select.low => mux2.3.sel
 net spindle-scale-set mux2.3.out => pyvcp.spindle-speed-scale-current hpg.pwmgen.00.out.00.scale
 
