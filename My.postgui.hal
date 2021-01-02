@@ -121,12 +121,12 @@ net sync-axiui-haui-jog-select-y axisui.jog.y halui.joint.1.select
 net sync-axiui-haui-jog-select-z axisui.jog.z halui.joint.2.select
 
 
-#setp scale.2.gain 60
-#setp lowpass.0.gain 0.010000
-#net spindle-velocity => lowpass.0.in
-#net spindle-fb-filtered-rps      lowpass.0.out  => abs.0.in
-#net spindle-fb-filtered-abs-rps  abs.0.out      => scale.2.in
-#net spindle-fb-filtered-abs-rpm  scale.2.out    => pyvcp.spindle-speed
+setp scale.2.gain 60
+setp lowpass.0.gain 0.010000
+net spindle-velocity => lowpass.0.in
+net spindle-fb-filtered-rps      lowpass.0.out  => abs.0.in
+net spindle-fb-filtered-abs-rps  abs.0.out      => scale.2.in
+net spindle-fb-filtered-abs-rpm  scale.2.out    => pyvcp.spindle-speed
 
 # スピンドルスピード設定をGUIからできるように。
 # Sable-2015 はプーリーで機械的に 10000rpm と 4300rpm を切り替えられるので設定できるようにする

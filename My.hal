@@ -249,8 +249,8 @@ net spindle-speed-cmd motion.spindle-speed-out => hpg.pwmgen.00.out.00.value
 
 # spindle encoder
 # index-enable がサポートされてない……
-setp hpg.encoder.00.chan.00.scale 60
-setp hpg.encoder.00.chan.00.counter-mode 2
+setp hpg.encoder.00.chan.00.scale 1
+setp hpg.encoder.00.chan.00.counter-mode 1
 # setp hpg.encoder.00.chan.00.index-pin 0
 setp hpg.encoder.00.chan.00.A-pin 7
 # setp hpg.encoder.00.chan.00.index-enable true
